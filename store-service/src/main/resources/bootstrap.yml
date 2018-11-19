@@ -1,0 +1,8 @@
+
+spring:
+  application:
+    name: store-service
+
+gemfire:
+  region:
+    name: gemfire-http-sessions

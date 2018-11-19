@@ -1,0 +1,8 @@
+server:
+  port: 9502
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+    
+   

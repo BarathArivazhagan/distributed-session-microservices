@@ -1,0 +1,25 @@
+
+spring:
+  application:
+    name: api-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+       - id: customer-service
+         uri: http://localhost:9501
+         predicates:
+          - Path= /custms/*
+         filters:
+          - StripPrefix=1 # required to strip the prefix made to the request . Ex /jio/customers request will go to jio service as /customers 
+       - id: store-service
+         uri: http://localhost:9502
+         predicates:
+          - Path= /storems/*
+         filters:
+          - StripPrefix=1
+       - id: inventory-service
+         uri: http://localhost:9503
+         predicates:
+          - Path= /invenms/*
+         filters:
+          - StripPrefix=1
