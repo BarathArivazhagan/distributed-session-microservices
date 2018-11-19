@@ -1,4 +1,5 @@
-
+server:
+  port: 9505
 spring:
   application:
     name: api-cloud-gateway

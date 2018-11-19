@@ -40,7 +40,7 @@ public class GemfireSessionFilter extends OncePerRequestFilter{
 		logger.info("session id {}",session.getId());
 		logger.info("new session ???  {}",session.isNew());
 		if(session.isNew()) {
-			throw new ServletException("Session id is not found access not allowed");
+			throw new ServletException("Session id is not found hence access not allowed");
 		}
 	
 		
