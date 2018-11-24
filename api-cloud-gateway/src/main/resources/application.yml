@@ -1,5 +1,10 @@
 server:
   port: 9505
+logging:
+  level:
+    root: debug
+    org.springframework.security: debug
+    org.springframework.cloud.gateway: TRACE
 spring:
   application:
     name: api-cloud-gateway
@@ -11,7 +16,7 @@ spring:
          predicates:
           - Path= /custms/*
          filters:
-          - StripPrefix=1 # required to strip the prefix made to the request . Ex /jio/customers request will go to jio service as /customers 
+          - StripPrefix=1 # required to strip the prefix made to the request . Ex /custms/customers request will go to customer service as /customerss 
        - id: store-service
          uri: http://localhost:9502
          predicates:
@@ -24,3 +29,20 @@ spring:
           - Path= /invenms/*
          filters:
           - StripPrefix=1
+
+  security:
+    oauth2:
+     client:
+        provider:
+          keycloak:
+            tokenUri: http://localhost:8080/auth/realms/demo/protocol/openid-connect/token
+            authorizationUri: http://localhost:8080/auth/realms/demo/protocol/openid-connect/auth
+            userInfoUri: http://localhost:8080/auth/realms/demo/protocol/openid-connect/userinfo
+            issuerUri: http://localhost:8080/auth/realms/demo
+        registration:
+          keycloak:
+             clientId: cloud-gateway
+             clientSecret:
+             scope: openid
+
+     

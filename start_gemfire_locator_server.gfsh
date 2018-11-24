@@ -1,0 +1,17 @@
+
+#stop locator --name=locator1 --dir=/Users/barath/locator1
+
+start locator --name=locator1 --dir=/Users/barath/locator1
+
+configure pdx --disk-store=DEFAULT
+
+start server --name=server1 --server-port=40404 --dir=/Users/barath/server1
+
+start server --name=server2 --server-port=40405 --dir=/Users/barath/server2
+
+list members
+
+create region --name=gemfire-sessions --type=PARTITION --entry-idle-time-expiration=1 --entry-idle-time-expiration-action=INVALIDATE --enable-statistics=true
+
+list regions
+
