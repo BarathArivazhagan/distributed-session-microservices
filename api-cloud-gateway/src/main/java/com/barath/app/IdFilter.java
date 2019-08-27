@@ -1,5 +1,7 @@
 package com.barath.app;
 
+import java.security.Principal;
+
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -8,9 +10,7 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
-/**
- * @author Rob Winch
- */
+
 //@Component
 public class IdFilter implements WebFilter {
 
@@ -21,7 +21,13 @@ public class IdFilter implements WebFilter {
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange,
 			WebFilterChain chain) {
-		firewall(exchange);
+		
+		Mono<Principal> monoPrincipal = exchange.getPrincipal();
+		monoPrincipal.doOnNext( a -> {
+			System.out.println("principal name"+a.getName());
+		}).subscribe();
+		return Mono.empty();
+/*		firewall(exchange);
 		return exchange.getPrincipal()
 			.cast(JwtAuthenticationToken.class)
 			.map(JwtAuthenticationToken::getToken)
@@ -31,7 +37,7 @@ public class IdFilter implements WebFilter {
 			.cast(String.class)
 			.map(userId -> withUserId(exchange, userId))
 			.defaultIfEmpty(exchange)
-			.flatMap(chain::filter);
+			.flatMap(chain::filter); */
 	}
 
 	private void firewall(ServerWebExchange exchange) {

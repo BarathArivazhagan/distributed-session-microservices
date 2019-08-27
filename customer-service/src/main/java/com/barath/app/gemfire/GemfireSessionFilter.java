@@ -1,6 +1,7 @@
 package com.barath.app.gemfire;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -35,6 +36,11 @@ public class GemfireSessionFilter extends OncePerRequestFilter{
 	
 		if(logger.isInfoEnabled()) {
 			logger.info("gemfire session filter invoked ====>");
+		}
+		Enumeration<String> headers = request.getHeaderNames();
+		while(headers.hasMoreElements()) {
+			String headerName= headers.nextElement();
+			logger.info("header key {} value{}",headerName,request.getHeader(headerName));
 		}
 		HttpSession session = request.getSession();
 		logger.info("session id {}",session.getId());

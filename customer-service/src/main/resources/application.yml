@@ -3,6 +3,7 @@ server:
 
 logging:
   level:
+    root: debug
     org.springframework.session: debug
 spring:
   application:

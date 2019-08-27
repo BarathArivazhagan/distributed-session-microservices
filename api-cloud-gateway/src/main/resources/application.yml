@@ -2,14 +2,20 @@ server:
   port: 9505
 logging:
   level:
-    root: debug
+    root: info
     org.springframework.security: debug
-    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway: trace
 spring:
   application:
     name: api-cloud-gateway
   cloud:
     gateway:
+      
+      default-filters:
+      - name: SecurityHeader
+        args:
+          name: user_id
+          value: default
       routes:
        - id: customer-service
          uri: http://localhost:9501
